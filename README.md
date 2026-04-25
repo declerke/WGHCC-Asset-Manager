@@ -261,4 +261,4 @@ maintenance_log (
 
 ## 🏨 Background
 
-This project originated as a final-year IT attachment deliverable for Windsor Golf Hotel & Country Club, Nairobi, Kenya (May 2024). The hotel's IT department tracked 400+ assets across departments using ad-hoc spreadsheets — no access control, no change history, no warranty visibility. The attachment deliverable was a basic Tkinter CSV tracker. This repository is the rebuilt and hardened version, developed after the attachment period to demonstrate production-grade desktop application development.
+This project originated as a final-year IT attachment deliverable for Windsor Golf Hotel & Country Club, Nairobi, Kenya (May 2025). The hotel's IT department tracked 400+ assets across departments using ad-hoc spreadsheets — no access control, no change history, no warranty visibility. The attachment deliverable was a basic Tkinter CSV tracker. This repository is the rebuilt and hardened version, developed after the attachment period to demonstrate production-grade desktop application development.
