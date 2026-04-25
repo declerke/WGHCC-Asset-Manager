@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WGHCC IT Asset & Inventory System — User Guide</title>
+  <style>
+    :root {
+      --green-dark:  #004d00;
+      --green-mid:   #1a7a1a;
+      --green-light: #e8f5e9;
+      --accent:      #2ecc71;
+      --warn:        #e67e22;
+      --danger:      #e74c3c;
+      --info:        #3498db;
+      --text:        #1a1a1a;
+      --muted:       #666;
+      --border:      #ccc;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      background: #f7f7f7;
+      line-height: 1.6;
+    }
+
+    /* ── Cover ── */
+    .cover {
+      background: var(--green-dark);
+      color: white;
+      padding: 60px 80px 50px;
+    }
+    .cover h1 { font-family: Garamond, Georgia, serif; font-size: 38px; font-weight: bold; }
+    .cover h2 { font-family: Garamond, Georgia, serif; font-size: 22px; font-weight: normal; opacity: .85; margin-top: 6px; }
+    .cover p  { margin-top: 20px; font-size: 13px; opacity: .7; }
+
+    /* ── Layout ── */
+    .container { max-width: 960px; margin: 0 auto; padding: 40px 24px; }
+
+    /* ── TOC ── */
+    .toc {
+      background: var(--green-light);
+      border-left: 4px solid var(--green-dark);
+      padding: 24px 30px;
+      margin-bottom: 40px;
+      border-radius: 0 6px 6px 0;
+    }
+    .toc h3 { color: var(--green-dark); font-size: 16px; margin-bottom: 12px; }
+    .toc ol  { padding-left: 20px; }
+    .toc li  { margin: 5px 0; }
+    .toc a   { color: var(--green-dark); text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+
+    /* ── Sections ── */
+    .section { margin-bottom: 50px; }
+    .section h2 {
+      font-family: Garamond, Georgia, serif;
+      font-size: 26px;
+      color: var(--green-dark);
+      border-bottom: 2px solid var(--green-light);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+    .section h3 {
+      font-size: 16px;
+      color: var(--green-mid);
+      margin: 22px 0 8px;
+    }
+    .section p, .section li { margin-bottom: 8px; }
+    .section ul, .section ol { padding-left: 22px; }
+
+    /* ── Steps ── */
+    .steps { counter-reset: step; padding: 0; list-style: none; }
+    .steps li {
+      counter-increment: step;
+      display: flex;
+      gap: 14px;
+      margin-bottom: 14px;
+      align-items: flex-start;
+    }
+    .steps li::before {
+      content: counter(step);
+      background: var(--green-dark);
+      color: white;
+      border-radius: 50%;
+      min-width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: bold;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── Callout boxes ── */
+    .callout {
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin: 16px 0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .callout .icon { font-size: 20px; flex-shrink: 0; }
+    .callout.tip    { background: #e8f5e9; border-left: 4px solid var(--green-mid); }
+    .callout.warn   { background: #fff3e0; border-left: 4px solid var(--warn); }
+    .callout.danger { background: #fdecea; border-left: 4px solid var(--danger); }
+    .callout.info   { background: #e3f2fd; border-left: 4px solid var(--info); }
+
+    /* ── Tables ── */
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+    th {
+      background: var(--green-dark);
+      color: white;
+      text-align: left;
+      padding: 10px 14px;
+    }
+    td { padding: 9px 14px; border-bottom: 1px solid var(--border); }
+    tr:nth-child(even) td { background: var(--green-light); }
+
+    /* ── Code / key ── */
+    code {
+      background: #f0f0f0;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-family: Consolas, monospace;
+      font-size: 13px;
+    }
+    .key {
+      background: var(--green-dark);
+      color: white;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    /* ── Badge ── */
+    .badge {
+      display: inline-block;
+      border-radius: 12px;
+      padding: 2px 10px;
+      font-size: 12px;
+      font-weight: bold;
+      color: white;
+    }
+    .badge.green  { background: var(--green-dark); }
+    .badge.orange { background: var(--warn); }
+    .badge.red    { background: var(--danger); }
+    .badge.blue   { background: var(--info); }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+
+    @media print {
+      body { background: white; font-size: 13px; }
+      .cover { padding: 40px; }
+      .section h2 { page-break-before: always; }
+      .section:first-of-type h2 { page-break-before: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ COVER ══════════════════════════════════════════════════════════════ -->
+<div class="cover">
+  <h1>WGHCC IT Asset &amp; Inventory System</h1>
+  <h2>Windsor Golf Hotel &amp; Country Club</h2>
+  <p>IT Department User Guide &nbsp;·&nbsp; Version 6.0</p>
+</div>
+
+<div class="container">
+
+  <!-- ══ TABLE OF CONTENTS ══════════════════════════════════════════════ -->
+  <div class="toc">
+    <h3>Table of Contents</h3>
+    <ol>
+      <li><a href="#s1">Getting Started — Login &amp; First-Time Setup</a></li>
+      <li><a href="#s2">Navigating the Application</a></li>
+      <li><a href="#s3">Dashboard</a></li>
+      <li><a href="#s4">Managing Inventory</a></li>
+      <li><a href="#s5">Importing &amp; Exporting Data</a></li>
+      <li><a href="#s6">Maintenance Log</a></li>
+      <li><a href="#s7">Audit Trail</a></li>
+      <li><a href="#s8">Admin Panel — User Management</a></li>
+      <li><a href="#s9">Recovering a Forgotten Password</a></li>
+      <li><a href="#s10">Field Reference</a></li>
+    </ol>
+  </div>
+
+  <!-- ══ 1 — GETTING STARTED ════════════════════════════════════════════ -->
+  <div class="section" id="s1">
+    <h2>1. Getting Started — Login &amp; First-Time Setup</h2>
+
+    <h3>Launching the Application</h3>
+    <p>Double-click <strong>wghcc_asset_manager.pyw</strong> to open the system. A login window will appear.</p>
+
+    <div class="callout tip">
+      <span class="icon">💡</span>
+      <span>Rename the file from <code>.py</code> to <code>.pyw</code> to prevent the black command-prompt window from appearing in the background.</span>
+    </div>
+
+    <h3>Logging In</h3>
+    <ol class="steps">
+      <li>Enter your <strong>Username</strong> in the first field.</li>
+      <li>Enter your <strong>Password</strong>. Click <strong>Show</strong> to reveal what you are typing.</li>
+      <li>Press <span class="key">Enter</span> or click <strong>Sign In</strong>.</li>
+    </ol>
+
+    <h3>Default Credentials (First Launch)</h3>
+    <table>
+      <tr><th>Username</th><th>Password</th><th>Role</th></tr>
+      <tr><td><code>admin</code></td><td><code>admin123</code></td><td>Administrator</td></tr>
+    </table>
+
+    <div class="callout warn">
+      <span class="icon">⚠️</span>
+      <span>On first login you will be asked to set a new password immediately before you can proceed. Choose a strong password and keep it safe.</span>
+    </div>
+
+    <h3>Changing Your Password</h3>
+    <p>At any time, click <strong>Change Password</strong> at the bottom of the left sidebar. Enter your new password twice and click <strong>Save Password</strong>.</p>
+  </div>
+
+  <!-- ══ 2 — NAVIGATION ═════════════════════════════════════════════════ -->
+  <div class="section" id="s2">
+    <h2>2. Navigating the Application</h2>
+    <p>The main window is divided into two areas:</p>
+    <ul>
+      <li><strong>Sidebar (left)</strong> — shows your username, role, and navigation buttons.</li>
+      <li><strong>Content area (right)</strong> — displays the active view.</li>
+    </ul>
+
+    <table>
+      <tr><th>Sidebar Button</th><th>What It Opens</th><th>Who Can Access</th></tr>
+      <tr><td>📊 Dashboard</td><td>Live KPIs, charts, and alerts</td><td>All users</td></tr>
+      <tr><td>📦 Inventory</td><td>Full asset list — add, edit, remove</td><td>All users</td></tr>
+      <tr><td>📋 Audit Trail</td><td>Complete history of every change</td><td>All users</td></tr>
+      <tr><td>🔧 Maintenance</td><td>Service and repair records</td><td>All users</td></tr>
+      <tr><td>⚙️ Admin Panel</td><td>User account management</td><td>Admin only</td></tr>
+    </table>
+
+    <h3>Dark / Light Mode</h3>
+    <p>Use the <strong>Dark Mode</strong> toggle at the bottom of the sidebar to switch themes at any time.</p>
+
+    <h3>Logging Out</h3>
+    <p>Click the red <strong>🚪 Logout</strong> button at the bottom of the sidebar. You will be returned to the login screen. Closing the window entirely will exit the application.</p>
+  </div>
+
+  <!-- ══ 3 — DASHBOARD ══════════════════════════════════════════════════ -->
+  <div class="section" id="s3">
+    <h2>3. Dashboard</h2>
+    <p>The Dashboard gives an at-a-glance overview of the entire inventory. It refreshes every time you navigate to it.</p>
+
+    <h3>KPI Cards</h3>
+    <table>
+      <tr><th>Card</th><th>What It Shows</th></tr>
+      <tr><td>Total Assets</td><td>Total number of distinct asset records in the system</td></tr>
+      <tr><td>Available</td><td>Assets whose status is <em>Available</em></td></tr>
+      <tr><td>Borrowed</td><td>Assets currently checked out or assigned</td></tr>
+      <tr><td>Total Value</td><td>Sum of Purchase Price × Quantity across all assets (KES)</td></tr>
+    </table>
+
+    <h3>Charts</h3>
+    <ul>
+      <li><strong>Assets by Category</strong> — pie chart showing the proportion of each equipment type.</li>
+      <li><strong>Asset Status Breakdown</strong> — bar chart showing how many assets are in each status.</li>
+    </ul>
+
+    <h3>Alerts Strip</h3>
+    <p>The alerts strip at the bottom of the dashboard automatically highlights two conditions:</p>
+    <ul>
+      <li><span class="badge red">WARRANTY</span> — an asset whose warranty expires within <strong>90 days</strong>, or has already expired.</li>
+      <li><span class="badge blue">LOW STOCK</span> — an asset whose quantity is at or below its <em>Minimum Stock</em> threshold.</li>
+    </ul>
+    <p>A green <strong>✓ No active alerts</strong> message confirms all assets are within normal parameters.</p>
+  </div>
+
+  <!-- ══ 4 — INVENTORY ══════════════════════════════════════════════════ -->
+  <div class="section" id="s4">
+    <h2>4. Managing Inventory</h2>
+
+    <h3>Viewing Assets</h3>
+    <p>The Inventory view shows all assets in a table. Click any column heading to sort by that column. Double-click a row to open the edit form.</p>
+
+    <h3>Searching and Filtering</h3>
+    <ul>
+      <li><strong>Search box</strong> — type any part of the asset name, serial number, location, brand, or model. Results update as you type.</li>
+      <li><strong>Category filter</strong> — narrow the list to one equipment category.</li>
+      <li><strong>Status filter</strong> — show only assets in a particular status (Available, Borrowed, etc.).</li>
+    </ul>
+    <p>The status bar at the top-right shows how many items match the current filters.</p>
+
+    <h3>Row Colour Coding</h3>
+    <table>
+      <tr><th>Colour</th><th>Meaning</th></tr>
+      <tr><td style="background:#fde8e8;">Red tint</td><td>Warranty expires within 30 days or has expired</td></tr>
+      <tr><td style="background:#fff3cd;">Yellow tint</td><td>Quantity is at or below the minimum stock level</td></tr>
+    </table>
+
+    <h3>Adding a New Asset</h3>
+    <ol class="steps">
+      <li>Click <strong>+ Add Asset</strong> in the toolbar.</li>
+      <li>Fill in the form. Fields marked with <strong>*</strong> (Name and Category) are required.</li>
+      <li>Click <strong>Save</strong>. The asset appears in the list immediately and the action is recorded in the Audit Trail.</li>
+    </ol>
+
+    <h3>Editing an Asset</h3>
+    <ol class="steps">
+      <li>Click the asset row to select it, then click <strong>✎ Edit</strong> — or simply double-click the row.</li>
+      <li>Update any fields and click <strong>Save</strong>.</li>
+      <li>Every changed field is individually recorded in the Audit Trail with the old and new values.</li>
+    </ol>
+
+    <h3>Removing an Asset</h3>
+    <ol class="steps">
+      <li>Select the asset row.</li>
+      <li>Click <strong>✕ Remove</strong>.</li>
+      <li>Confirm the deletion in the prompt. <strong>This action cannot be undone.</strong></li>
+    </ol>
+
+    <div class="callout danger">
+      <span class="icon">🚫</span>
+      <span>Deleting an asset permanently removes it from the database. Consider setting the status to <em>Retired</em> instead of deleting if you want to keep a historical record.</span>
+    </div>
+
+    <h3>Logging a Maintenance Record for an Asset</h3>
+    <ol class="steps">
+      <li>Select the asset row.</li>
+      <li>Click <strong>🔧 Maintenance</strong>.</li>
+      <li>Fill in the service details and click <strong>Save Record</strong>.</li>
+    </ol>
+    <p>The record will appear in the Maintenance Log view and in the Audit Trail.</p>
+
+    <h3>Asset Status Values</h3>
+    <table>
+      <tr><th>Status</th><th>Meaning</th></tr>
+      <tr><td>Available</td><td>In the IT store, ready to be issued</td></tr>
+      <tr><td>Borrowed</td><td>Checked out to a staff member or department</td></tr>
+      <tr><td>Reserved</td><td>Set aside for a specific person or use</td></tr>
+      <tr><td>Missing</td><td>Cannot be located — needs investigation</td></tr>
+      <tr><td>Retired</td><td>End-of-life; no longer in active use</td></tr>
+    </table>
+
+    <h3>Condition Values</h3>
+    <table>
+      <tr><th>Condition</th><th>Description</th></tr>
+      <tr><td>New</td><td>Unopened or recently purchased</td></tr>
+      <tr><td>Good</td><td>Fully functional, minimal wear</td></tr>
+      <tr><td>Fair</td><td>Functional but showing age or light damage</td></tr>
+      <tr><td>Poor</td><td>Barely functional; replacement recommended</td></tr>
+      <tr><td>Under Repair</td><td>Currently being serviced</td></tr>
+      <tr><td>Non-Functional</td><td>Broken; pending disposal or repair</td></tr>
+      <tr><td>Obsolete</td><td>Still works but technology is outdated</td></tr>
+    </table>
+  </div>
+
+  <!-- ══ 5 — IMPORT / EXPORT ════════════════════════════════════════════ -->
+  <div class="section" id="s5">
+    <h2>5. Importing &amp; Exporting Data</h2>
+
+    <h3>Downloading the Import Template</h3>
+    <ol class="steps">
+      <li>In the Inventory toolbar, click <strong>↻ Template</strong>.</li>
+      <li>Choose where to save the file and click Save.</li>
+      <li>Open the file in Microsoft Excel. Each column header corresponds to an asset field.</li>
+    </ol>
+
+    <h3>Importing Assets from Excel</h3>
+    <ol class="steps">
+      <li>Fill in the template. <strong>Name</strong> and <strong>Category</strong> are the only required columns.</li>
+      <li>Save the file in <code>.xlsx</code> format.</li>
+      <li>In the Inventory toolbar, click <strong>⬇ Import Excel</strong> and select your file.</li>
+      <li>A summary will show how many rows were imported and any errors encountered.</li>
+    </ol>
+
+    <div class="callout warn">
+      <span class="icon">⚠️</span>
+      <span>Rows with a <strong>Serial Number</strong> that already exists in the database will be skipped to avoid duplicates. Check the error summary after importing.</span>
+    </div>
+
+    <h3>Exporting the Current View</h3>
+    <ol class="steps">
+      <li>Apply any filters you want (the export respects the current search/filter).</li>
+      <li>Click <strong>⬆ Export View</strong>.</li>
+      <li>Choose a file name and location. The file will open directly in Excel.</li>
+    </ol>
+
+    <h3>Exporting the Audit Log or Maintenance Log</h3>
+    <p>Each of those views has an <strong>⬆ Export</strong> button in the toolbar that works the same way.</p>
+  </div>
+
+  <!-- ══ 6 — MAINTENANCE LOG ════════════════════════════════════════════ -->
+  <div class="section" id="s6">
+    <h2>6. Maintenance Log</h2>
+    <p>The Maintenance Log is a chronological record of every service, repair, or upgrade carried out on any asset.</p>
+    <p>Records are added through the Inventory view (select an asset → <strong>🔧 Maintenance</strong>). Each record captures:</p>
+
+    <table>
+      <tr><th>Field</th><th>Description</th></tr>
+      <tr><td>Service Date</td><td>Date the work was performed (YYYY-MM-DD)</td></tr>
+      <tr><td>Service Type</td><td>Repair, Replacement, Upgrade, Inspection, Cleaning, Software Update, or Other</td></tr>
+      <tr><td>Description</td><td>Free-text notes about what was done</td></tr>
+      <tr><td>Cost (KES)</td><td>Cost of the service, if applicable</td></tr>
+      <tr><td>Performed By</td><td>Name of the technician or vendor</td></tr>
+      <tr><td>Next Service Date</td><td>Recommended date for the next service</td></tr>
+    </table>
+
+    <p>Click <strong>⬆ Export</strong> to download the full log as an Excel file.</p>
+  </div>
+
+  <!-- ══ 7 — AUDIT TRAIL ════════════════════════════════════════════════ -->
+  <div class="section" id="s7">
+    <h2>7. Audit Trail</h2>
+    <p>The Audit Trail is a tamper-evident record of every action performed in the system — who did it, what they changed, and when.</p>
+
+    <h3>Action Types</h3>
+    <table>
+      <tr><th>Action</th><th>Meaning</th></tr>
+      <tr><td><span class="badge green">ADD</span></td><td>A new asset was created</td></tr>
+      <tr><td><span class="badge blue">EDIT</span></td><td>A field on an existing asset was changed. The old and new values are both recorded.</td></tr>
+      <tr><td><span class="badge red">DELETE</span></td><td>An asset was permanently removed</td></tr>
+      <tr><td><span class="badge" style="background:#9b59b6;">MAINTENANCE</span></td><td>A maintenance record was logged</td></tr>
+      <tr><td><span class="badge" style="background:#555;">LOGIN / LOGOUT</span></td><td>A user signed in or out</td></tr>
+    </table>
+
+    <h3>Searching the Audit Trail</h3>
+    <p>Use the filter box to search by username, action type, or asset name. Results update as you type.</p>
+
+    <h3>Exporting</h3>
+    <p>Click <strong>⬆ Export</strong> to save the full audit log as an Excel file — useful for compliance reviews or IT audits.</p>
+
+    <div class="callout info">
+      <span class="icon">ℹ️</span>
+      <span>Audit records cannot be edited or deleted from within the application, ensuring an accurate and trustworthy history.</span>
+    </div>
+  </div>
+
+  <!-- ══ 8 — ADMIN PANEL ════════════════════════════════════════════════ -->
+  <div class="section" id="s8">
+    <h2>8. Admin Panel — User Management</h2>
+    <p>The Admin Panel is visible only to users with the <strong>Admin</strong> role.</p>
+
+    <h3>Creating a New User</h3>
+    <ol class="steps">
+      <li>Click <strong>+ Create User</strong>.</li>
+      <li>Enter a username, a temporary password (minimum 6 characters), and select a role (<em>Staff</em> or <em>Admin</em>).</li>
+      <li>Click <strong>Create User</strong>. The new user will be prompted to change their password on first login.</li>
+    </ol>
+
+    <h3>Deactivating a User</h3>
+    <ol class="steps">
+      <li>Select the user from the list.</li>
+      <li>Click <strong>✕ Deactivate</strong>. The user will no longer be able to log in.</li>
+      <li>To re-enable access, select the user and click <strong>✓ Activate</strong>.</li>
+    </ol>
+
+    <div class="callout danger">
+      <span class="icon">🚫</span>
+      <span>The <code>admin</code> account cannot be deactivated. Always ensure at least one active Admin account exists.</span>
+    </div>
+
+    <h3>Resetting a User's Password</h3>
+    <ol class="steps">
+      <li>Select the user from the list.</li>
+      <li>Click <strong>🔑 Reset Password</strong>.</li>
+      <li>A temporary password will be generated and shown on screen. Share it with the user — they will be required to change it on next login.</li>
+    </ol>
+
+    <h3>Roles Explained</h3>
+    <table>
+      <tr><th>Role</th><th>Capabilities</th></tr>
+      <tr><td><span class="badge orange">Admin</span></td><td>Full access including User Management and all inventory operations</td></tr>
+      <tr><td><span class="badge" style="background:#555;">Staff</span></td><td>Can view, add, edit, and log maintenance for assets; cannot manage users</td></tr>
+    </table>
+  </div>
+
+  <!-- ══ 9 — FORGOT PASSWORD ════════════════════════════════════════════ -->
+  <div class="section" id="s9">
+    <h2>9. Recovering a Forgotten Password</h2>
+    <p>If you cannot log in because you have forgotten your password, use the built-in recovery flow.</p>
+
+    <ol class="steps">
+      <li>On the Login screen, click <strong>Forgot password?</strong> below the password field.</li>
+      <li>Enter the <strong>Recovery Code</strong>. This code is held by the IT Administrator.</li>
+      <li>Select the username whose password you need to reset from the dropdown.</li>
+      <li>Enter and confirm the new password.</li>
+      <li>Click <strong>Reset Password</strong>. You can now log in with the new password.</li>
+    </ol>
+
+    <div class="callout warn">
+      <span class="icon">⚠️</span>
+      <span>Keep the Recovery Code confidential. It provides full password-reset access to all accounts. Store it securely — not on the same machine as the application.</span>
+    </div>
+
+    <div class="callout info">
+      <span class="icon">ℹ️</span>
+      <span>If the recovery code is also lost, contact the system developer to perform a database-level reset.</span>
+    </div>
+  </div>
+
+  <!-- ══ 10 — FIELD REFERENCE ══════════════════════════════════════════ -->
+  <div class="section" id="s10">
+    <h2>10. Field Reference</h2>
+    <p>Complete description of every field in the Add / Edit Asset form.</p>
+
+    <table>
+      <tr><th>Field</th><th>Required</th><th>Description</th></tr>
+      <tr><td>Name</td><td>Yes</td><td>Descriptive name of the asset, e.g. <em>Dell OptiPlex 7090</em></td></tr>
+      <tr><td>Category</td><td>Yes</td><td>Equipment type selected from the dropdown list</td></tr>
+      <tr><td>Brand</td><td>No</td><td>Manufacturer name, e.g. <em>Dell</em>, <em>HP</em>, <em>Cisco</em></td></tr>
+      <tr><td>Model</td><td>No</td><td>Model number or name, e.g. <em>OptiPlex 7090</em></td></tr>
+      <tr><td>Serial Number</td><td>No</td><td>Manufacturer serial number — must be unique if provided</td></tr>
+      <tr><td>Quantity</td><td>No</td><td>Number of identical units tracked under this record (default: 1)</td></tr>
+      <tr><td>Condition</td><td>No</td><td>Physical state of the asset (New, Good, Fair, Poor, etc.)</td></tr>
+      <tr><td>Status</td><td>No</td><td>Operational state (Available, Borrowed, Reserved, etc.)</td></tr>
+      <tr><td>Purchase Price (KES)</td><td>No</td><td>Original cost in Kenyan Shillings — used for depreciation reports</td></tr>
+      <tr><td>Purchase Date</td><td>No</td><td>Date of purchase in <code>YYYY-MM-DD</code> format</td></tr>
+      <tr><td>Warranty Expiry</td><td>No</td><td>Date warranty ends in <code>YYYY-MM-DD</code> format — triggers alerts within 90 days</td></tr>
+      <tr><td>Supplier</td><td>No</td><td>Company or person the asset was purchased from</td></tr>
+      <tr><td>Location</td><td>No</td><td>Physical location of the asset, e.g. <em>Server Room</em>, <em>Reception Desk</em></td></tr>
+      <tr><td>Assigned To</td><td>No</td><td>Staff member or department currently responsible for the asset</td></tr>
+      <tr><td>Minimum Stock</td><td>No</td><td>Minimum quantity threshold — triggers a low-stock alert on the dashboard</td></tr>
+      <tr><td>Specifications</td><td>No</td><td>Technical details, e.g. RAM, storage, processor</td></tr>
+      <tr><td>Notes</td><td>No</td><td>Any additional free-text information</td></tr>
+    </table>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  WGHCC IT Asset &amp; Inventory System — User Guide v6.0
+  &nbsp;·&nbsp; Windsor Golf Hotel &amp; Country Club, IT Department
+  &nbsp;·&nbsp; For technical support contact the IT Administrator.
+</footer>
+
+</body>
+</html>
