@@ -325,6 +325,11 @@ class DatabaseManager:
 # ══════════════════════════════════════════════════════════════════════════════
 _TREE_STYLE_APPLIED = False
 
+def export_items_to_excel(items: List[ITInventoryItem], filename: str) -> None:
+    """Export selected inventory items to an Excel workbook."""
+    pd.DataFrame([asdict(item) for item in items]).to_excel(filename, index=False)
+
+
 def apply_treeview_style():
     global _TREE_STYLE_APPLIED
     mode = ctk.get_appearance_mode()
@@ -1217,7 +1222,7 @@ class InventoryView(ctk.CTkFrame):
         if not f:
             return
         items = [i for i in self._items if i.item_id in ids]
-        pd.DataFrame([asdict(i) for i in items]).to_excel(f, index=False)
+        export_items_to_excel(items, f)
         messagebox.showinfo("Exported", f"Saved {len(items)} rows to {f}")
 
     def _template(self):
